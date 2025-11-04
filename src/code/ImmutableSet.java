@@ -60,9 +60,32 @@ public class ImmutableSet implements Iterable<Integer>{
         }
     }
 
+    private static class ImmutableSetIterator implements Iterator<Integer>{
+
+        private ImmutableSet visited;
+        private Node current;
+
+        public ImmutableSetIterator(ImmutableSet immutableSet) {
+            visited = new ImmutableSet();
+            current = immutableSet.root;
+        }
+
+        @Override
+        public boolean hasNext() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'hasNext'");
+        }
+
+        @Override
+        public Integer next() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'next'");
+        }
+
+    }
+
     @Override
     public Iterator<Integer> iterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'iterator'");
+        return new ImmutableSetIterator(this);
     }
 }
