@@ -18,7 +18,6 @@ public class ImmutableSet implements Iterable<Integer>{
 		}
 	}	
 	
-	
 	public ImmutableSet(Node root) {
 		this.root = root;
 	}
