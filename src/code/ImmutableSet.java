@@ -7,10 +7,12 @@ public class ImmutableSet {
 	private static class Node {
 		public final int value;
 		public final Node next;
+		public final boolean removed;
 
-		Node(int value, Node next) {
+		Node(int value, Node next, boolean removed) {
 			this.value = value;
 			this.next = next;
+			this.removed = removed;
 		}
 	}	
 	
@@ -20,7 +22,11 @@ public class ImmutableSet {
 	}
 	
 	public ImmutableSet add(int value) {	
-		return new ImmutableSet(new Node(value, root));
+		return new ImmutableSet(new Node(value, root, false));
 	}
 	
+
+	public ImmutableSet remove(int value){
+		return new ImmutableSet(new Node(value, root, true)); 
+	}
 }
