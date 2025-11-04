@@ -1,6 +1,8 @@
 package code;
 
-public class ImmutableSet {
+import java.util.Iterator;
+
+public class ImmutableSet implements Iterable<Integer>{
 
 	private final Node root;
 	
@@ -20,6 +22,10 @@ public class ImmutableSet {
 	public ImmutableSet(Node root) {
 		this.root = root;
 	}
+
+    public ImmutableSet() {
+		this(null);
+	}
 	
 	public ImmutableSet add(int value) {	
 		return new ImmutableSet(new Node(value, root, false));
@@ -29,4 +35,34 @@ public class ImmutableSet {
 	public ImmutableSet remove(int value){
 		return new ImmutableSet(new Node(value, root, true)); 
 	}
+
+    public boolean contains(int value){
+        Node current = root;
+        while(current != null){
+            if(current.value == value){
+                return !current.removed;
+            }
+            current = current.next;
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        ImmutableSet set = new ImmutableSet();
+        System.out.println(set.contains(5));
+        set = set.add(5).add(6).add(0).remove(6);
+        System.out.println(set.contains(5));
+        System.out.println(set.contains(6));
+        System.out.println(set.contains(0));
+        System.out.println(set.contains(7));
+        for(int value:set){
+            System.out.println(value);
+        }
+    }
+
+    @Override
+    public Iterator<Integer> iterator() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'iterator'");
+    }
 }
