@@ -57,28 +57,47 @@ public class ImmutableSet implements Iterable<Integer>{
         for(int value:set){
             System.out.println(value);
         }
+        Iterator<Integer> iterator = set.iterator();
+        while(iterator.hasNext()) {
+        	int value = iterator.next();
+        	System.out.println(value);
+        }
     }
 
     private static class ImmutableSetIterator implements Iterator<Integer>{
 
         private ImmutableSet visited;
-        private Node current;
+        private Node next;
 
         public ImmutableSetIterator(ImmutableSet immutableSet) {
             visited = new ImmutableSet();
-            current = immutableSet.root;
+            next = immutableSet.root;
+            forward();
         }
 
         @Override
         public boolean hasNext() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'hasNext'");
+        	return next!=null;
         }
 
         @Override
         public Integer next() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'next'");
+            Integer result = next.value;
+            
+            visited = visited.add(next.value);
+            
+            forward();
+            
+            return result;
+        }
+        
+        public void forward() {
+        	while(hasNext() && (visited.contains(next.value) || next.removed)) {
+        		if(next.removed) {
+        			visited = visited.add(next.value);
+        		}
+        		next = next.next;
+        	}
         }
 
     }
